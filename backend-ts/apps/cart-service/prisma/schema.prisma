@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/@prisma/client-cart"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("CART_DATABASE_URL")
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int        @unique @map("user_id")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+
+  @@map("carts")
+}
+
+model CartItem {
+  id         Int      @id @default(autoincrement())
+  cartId     Int      @map("cart_id")
+  cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId  Int      @map("product_id")
+  quantity   Int      @default(1)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  product    ReadOnlyProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
+
+model ReadOnlyProduct {
+  id        Int        @id
+  name      String
+  price     Int       @default(0)
+  discount  Int        @default(0)
+  discountPrice Int    @default(0)
+  stock     Int        @default(0)
+  image  String?
+  isDeleted Boolean    @default(false) @map("is_deleted")
+  updatedAt DateTime   @updatedAt
+
+  cartItems CartItem[]
+
+  @@map("readonly_products")
+}

@@ -1,0 +1,25 @@
+package com.shop.common.config;
+
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.shop.common.constants.Constants;
+
+import lombok.RequiredArgsConstructor;
+
+@Configuration
+@RequiredArgsConstructor
+public class RedissonConfig {
+    private final Constants constants;
+
+    @Bean
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        config.useSingleServer()
+                .setAddress("redis://" + constants.getRedisHost() + ":" + constants.getRedisPort());
+        return Redisson.create(config);
+    }
+}

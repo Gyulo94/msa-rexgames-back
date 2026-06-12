@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/@prisma/client-query"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model ProductQuery {
+  productId     Int      @id @map("product_id") 
+  name          String   @db.VarChar(255)
+  slug          String   @unique @db.VarChar(255) 
+  price         Int
+  discount      Int?     @default(0)
+  discountPrice Int?     @map("discount_price")
+  genreName     String?  @map("genre_name") @db.VarChar(100)
+  platformName  String?  @map("platform_name") @db.VarChar(100)
+  description   String?  @db.Text
+  reviewRating  Float    @default(0.0) @map("review_rating")
+  reviewCount   Int      @default(0) @map("review_count")
+  stock         Int      @default(0)
+  specs         Json     @default("[]")
+  images        Json     @default("[]")
+  isDeleted     Boolean  @default(false) @map("is_deleted")
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamp
+
+  @@map("q_products")
+}

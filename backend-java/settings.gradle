@@ -1,0 +1,6 @@
+rootProject.name = 'backend-java'
+
+include 'java-common'
+include 'product-command-service'
+include 'order-command-service'
+include 'payment-service'

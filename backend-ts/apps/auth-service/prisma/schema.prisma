@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/@prisma/client-auth"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("AUTH_DATABASE_URL")
+}
+
+enum Provider {
+  LOCAL
+  GOOGLE
+  KAKAO
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id           Int         @id @default(autoincrement())
+  email        String         @unique
+  password     String
+  name         String?
+  image        String?
+  provider     Provider       @default(LOCAL)
+  role         Role           @default(USER)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@map("users")
+}

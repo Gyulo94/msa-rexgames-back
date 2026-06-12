@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/@prisma/client-wishlist"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("WISHLIST_DATABASE_URL")
+}
+
+model Wishlist {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  productId Int      @map("product_id")
+  createdAt DateTime @default(now())
+  product   ReadOnlyProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("wishlists")
+}
+
+model ReadOnlyProduct {
+  id        Int        @id
+  name      String
+  price     Int       @default(0)
+  discount  Int        @default(0)
+  discountPrice Int    @default(0)
+  stock     Int        @default(0)
+  image  String?
+  isDeleted Boolean    @default(false) @map("is_deleted")
+  updatedAt DateTime   @updatedAt
+
+  wishlists Wishlist[]
+
+  @@map("readonly_products")
+}

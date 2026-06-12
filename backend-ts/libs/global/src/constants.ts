@@ -1,0 +1,19 @@
+export const PORT = process.env.PORT;
+export const AUTH_DATABASE_URL = process.env.AUTH_DATABASE_URL;
+export const REDIS_HOST = process.env.REDIS_HOST;
+export const REDIS_PORT = process.env.REDIS_PORT;
+export const ACCESS_TOKEN_SECRET_KEY = process.env.ACCESS_TOKEN_SECRET_KEY;
+export const REFRESH_TOKEN_SECRET_KEY = process.env.REFRESH_TOKEN_SECRET_KEY;
+export const ACCESS_TOKEN_EXPIRES_IN = process.env.ACCESS_TOKEN_EXPIRES_IN;
+export const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN;
+export const NODE_ENV = process.env.NODE_ENV;
+export const APP_NAME = process.env.APP_NAME;
+export const PROJECT_NAME = process.env.PROJECT_NAME;
+export const PROJECT_LOGO = process.env.PROJECT_LOGO;
+export const SMTP_HOST = process.env.SMTP_HOST;
+export const SMTP_USER = process.env.SMTP_USER;
+export const SMTP_PASS = process.env.SMTP_PASS;
+
+export const EMAIL_SERVICE_URL = process.env.EMAIL_SERVICE_URL;
+export const CLIENT_URL = process.env.CLIENT_URL;
+export const FILE_SERVICE_URL = process.env.FILE_SERVICE_URL;
